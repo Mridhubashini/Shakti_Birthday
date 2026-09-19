@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday, Shakti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --kraft:#c9a26f; --kraft-hi:rgba(255,238,200,.38); --kraft-lo:rgba(70,38,14,.38);
+  --ink:#4a2f1a; --paper:#fbf1da; --paper-edge:#dcc59a; --paper-line:rgba(140,100,60,.11);
+  --tomato:#e8492f; --tomato-ink:#fff7e6; --lime:#b7d268; --pink:#f3a9b4;
+  --shadow:rgba(50,26,8,.4); --focus:#2b1a0c;
+  --pw:400px; --ph:calc(var(--pw)*1.41443); --s:1; --cy:400px; --flip:1000ms;
+  --font:"Gochi Hand","Comic Sans MS","Bradley Hand",cursive;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --kraft:#6b4e2f; --kraft-hi:rgba(255,220,160,.10); --kraft-lo:rgba(0,0,0,.5);
+    --ink:#f6e6c6; --paper:#4b3722; --paper-edge:#33240f; --paper-line:rgba(255,230,180,.07);
+    --shadow:rgba(0,0,0,.6); --focus:#fff3d6;
+  }
+}
+:root[data-theme="dark"]{
+  --kraft:#6b4e2f; --kraft-hi:rgba(255,220,160,.10); --kraft-lo:rgba(0,0,0,.5);
+  --ink:#f6e6c6; --paper:#4b3722; --paper-edge:#33240f; --paper-line:rgba(255,230,180,.07);
+  --shadow:rgba(0,0,0,.6); --focus:#fff3d6;
+}
+
+/* ---------- base ---------- */
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{
+  margin:0;height:100%;overflow:hidden;position:relative;font-family:var(--font);color:var(--ink);
+  background-color:var(--kraft);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .2 0 0 0 0 .09 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006 .35' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .14 0 0 0 0 .05 0 0 0 .55 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 70% 60% at 50% 42%,var(--kraft-hi),transparent 70%),
+    radial-gradient(ellipse 120% 70% at 50% 115%,var(--kraft-lo),transparent 65%);
+  -webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;
+}
+button{font:inherit;color:inherit}
+img{display:block;-webkit-user-drag:none;user-drag:none}
+.vh{visibility:hidden!important;pointer-events:none!important}
+
+/* ---------- background scrapbook bits ---------- */
+.deco{position:absolute;pointer-events:none;z-index:0}
+.tape{width:170px;height:38px;opacity:.85;box-shadow:0 2px 6px rgba(50,26,8,.25);
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.34) 0 9px,transparent 9px 18px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.34) 0 9px,transparent 9px 18px),#ea8a92;
+  -webkit-mask:linear-gradient(90deg,transparent 0,#000 3px,#000 calc(100% - 3px),transparent 100%);mask:linear-gradient(90deg,transparent 0,#000 3px,#000 calc(100% - 3px),transparent 100%)}
+.tape.a{top:calc(env(safe-area-inset-top,0px) + 18px);left:-40px;transform:rotate(-38deg)}
+.tape.b{bottom:calc(env(safe-area-inset-bottom,0px) + 30px);right:-46px;transform:rotate(-38deg);
+  background:repeating-linear-gradient(90deg,#b7d268 0 12px,#d2e493 12px 24px)}
+.sticker{opacity:.9;filter:drop-shadow(0 2px 2px rgba(50,26,8,.25))}
+.sticker.s1{left:5vw;bottom:18vh;width:54px;transform:rotate(-14deg)}
+.sticker.s2{right:6vw;top:12vh;width:46px;transform:rotate(12deg)}
+@media (max-width:760px){.sticker,.tape.b{display:none}}
+
+/* ---------- book ---------- */
+.bookwrap{
+  position:absolute;z-index:1;left:50%;top:calc(var(--cy) - var(--ph)/2);
+  width:calc(var(--pw)*2);height:var(--ph);margin-left:calc(var(--pw)*-1);
+  transition:transform var(--flip) cubic-bezier(.55,.05,.25,1);transform-origin:50% 50%;
+}
+.bookwrap[data-state="0"]{transform:translateX(calc(var(--pw)*var(--s)*-.5)) scale(var(--s))}
+.bookwrap[data-state="1"],.bookwrap[data-state="2"]{transform:translateX(0) scale(1)}
+.book{position:absolute;inset:0;perspective:calc(var(--pw)*3.4)}
+.slot{position:absolute;top:0;width:var(--pw);height:var(--ph)}
+.slot.l{left:0;z-index:2}
+.slot.r{left:var(--pw);z-index:1}
+
+.page{position:absolute;inset:0;font-size:calc(var(--pw)/20);line-height:1.2;background:var(--paper)}
+.slot.r .page{border-radius:1px 8px 8px 1px;
+  box-shadow:1px 1px 0 #f3e6c8,2px 2px 0 #cdb88f,3px 3px 0 #f3e6c8,4px 4px 0 #c4ad82,6px 8px 22px var(--shadow)}
+.slot.l .page{border-radius:8px 1px 1px 8px;
+  box-shadow:-1px 1px 0 #f3e6c8,-2px 2px 0 #cdb88f,-3px 3px 0 #f3e6c8,-4px 4px 0 #c4ad82,-6px 8px 22px var(--shadow)}
+.page::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:20}
+.slot.r .page::after,.leaf .front .page::after{background:linear-gradient(90deg,rgba(40,20,5,.30),transparent 10%)}
+.slot.l .page::after,.leaf .back .page::after{background:linear-gradient(270deg,rgba(40,20,5,.30),transparent 10%)}
+.page > img.fill{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;border-radius:inherit}
+
+/* leaves (the two pieces that physically turn) */
+.leaf{position:absolute;top:0;left:var(--pw);width:var(--pw);height:var(--ph);
+  transform-origin:0 50%;transform-style:preserve-3d;
+  transition:transform var(--flip) cubic-bezier(.5,.02,.2,1);will-change:transform}
+.leaf.flipped{transform:rotateY(-180deg)}
+.leaf .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:1px 8px 8px 1px;background:var(--paper)}
+.leaf .back{transform:rotateY(180deg);border-radius:8px 1px 1px 8px}
+.leaf .face .page{position:absolute;inset:0;font-size:calc(var(--pw)/20);box-shadow:none;border-radius:inherit}
+.leaf.cover{z-index:30;cursor:pointer;box-shadow:none}
+.leaf.cover .front{box-shadow:1px 1px 0 #f3e6c8,2px 2px 0 #cdb88f,5px 6px 20px var(--shadow)}
+.leaf.cover .front::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(90deg,rgba(40,20,5,.35),transparent 7%,transparent 92%,rgba(255,255,255,.12))}
+.leaf.cover .front img{width:100%;height:100%;border-radius:inherit}
+.leaf.cover:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.leaf.cover.idle{animation:nudge 5s ease-in-out 1.6s infinite}
+@keyframes nudge{0%,86%,100%{transform:rotateY(0)}92%{transform:rotateY(-9deg)}96%{transform:rotateY(-3deg)}}
+.leaf.b{z-index:20}
+.leaf.b .front .clone{position:absolute;inset:0}
+.leaf.b .front .clone .page{pointer-events:none}
+
+/* ---------- letter page (left) ---------- */
+.letterPage{background:
+  radial-gradient(circle at 18% 12%,rgba(255,255,255,.4),transparent 55%),
+  linear-gradient(var(--paper-line) 1px,transparent 1px) 0 0/100% 1.55em,
+  linear-gradient(90deg,var(--paper-line) 1px,transparent 1px) 0 0/1.55em 100%,
+  var(--paper)}
+.letterPage .tapeTop{position:absolute;left:-4%;top:3%;width:34%;height:4.4%;transform:rotate(-24deg);z-index:1;opacity:.92;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.34) 0 .45em,transparent .45em .9em),repeating-linear-gradient(90deg,rgba(255,255,255,.34) 0 .45em,transparent .45em .9em),#ea8a92;
+  box-shadow:0 1px 3px rgba(50,26,8,.3)}
+.letterPage .cap{position:absolute;left:24%;top:9%;margin:0;font-size:1.25em;color:var(--tomato);transform:rotate(-4deg);white-space:nowrap;z-index:1}
+.letterPage .capArrow{position:absolute;left:52%;top:13%;width:19%;z-index:1;overflow:visible}
+.letterPage .env{position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible}
+.letterPage .letter{position:absolute;z-index:4;left:6%;top:0;width:88%;
+  transform-origin:50% 0;
+  transform:translateY(calc(var(--pw)/100*44)) scale(.62);
+  clip-path:inset(-3% -3% 63.4% -3%);
+  transition:transform .7s cubic-bezier(.4,.05,.2,1),clip-path .7s cubic-bezier(.4,.05,.2,1);
+  cursor:pointer;outline:none}
+.letterPage .letter img{width:100%;height:auto;box-shadow:0 .25em .9em rgba(40,20,5,.5);border-radius:2px}
+.letterPage .letter:focus-visible img{outline:3px solid var(--focus);outline-offset:3px}
+.letterPage .hit{position:absolute;left:6%;top:50.8%;width:88%;height:44%;z-index:3;cursor:pointer}   /* envelope pocket is tappable too */
+.letterPage .scrim{position:absolute;z-index:3;left:-350%;top:-350%;width:800%;height:800%;background:rgba(58,32,12,.42);
+  opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s .5s}
+.letterPage.up .scrim{opacity:1;visibility:visible;transition:opacity .5s,visibility 0s}
+
+/* ---------- candles page (right) ---------- */
+.candlePage{background:#f3e6cf;overflow:hidden}
+.candlePage .cake{position:absolute;inset:0;width:100%;height:100%}
+.candlePage .layer{position:absolute;height:auto;pointer-events:none}
+.candlePage .flame{will-change:transform;transition:none}
+.candlePage .flame.out{opacity:0;transition:opacity .16s ease-out,transform .16s ease-out}
+.candlePage .flame.lighting{transition:opacity .35s ease-out}
+.candlePage .spark{animation:twinkle 2.6s ease-in-out infinite;animation-delay:var(--d,0s);transition:opacity .4s,transform .4s}
+.candlePage .spark.gone{animation:none;opacity:0;transform:scale(.3) rotate(40deg)}
+@keyframes twinkle{0%,100%{transform:scale(1) rotate(0);opacity:1}50%{transform:scale(.82) rotate(8deg);opacity:.72}}
+.candlePage .smoke{position:absolute;width:0;height:0;pointer-events:none}
+.candlePage .smoke i{position:absolute;left:-1.4em;top:-1.4em;width:2.8em;height:2.8em;border-radius:50%;opacity:0;
+  background:radial-gradient(circle,rgba(92,80,92,.55),rgba(92,80,92,0) 68%)}
+.candlePage .smoke.go i{animation:puff 1.9s ease-out forwards}
+.candlePage .smoke.go i:nth-child(2){animation-delay:.18s;left:-.4em}
+.candlePage .smoke.go i:nth-child(3){animation-delay:.36s;left:-2.2em}
+@keyframes puff{0%{opacity:0;transform:translate(0,0) scale(.3)}18%{opacity:.85}100%{opacity:0;transform:translate(1.6em,-5.2em) scale(1.9)}}
+.candlePage .wish{position:absolute;left:50%;top:69%;z-index:6;width:76%;text-align:center;pointer-events:none;
+  transform:translate(-50%,0) rotate(-2.5deg) scale(.6);opacity:0;transition:opacity .5s,transform .6s cubic-bezier(.2,1.4,.4,1)}
+.candlePage .wish.show{opacity:1;transform:translate(-50%,0) rotate(-2.5deg) scale(1)}
+.candlePage .wish .tag{position:relative;display:block;padding:.55em .5em .6em;background:var(--paper);color:var(--tomato);
+  font-size:1.75em;line-height:1.05;border-radius:3px;box-shadow:0 .2em .8em rgba(40,20,5,.4),0 0 0 .18em rgba(255,255,255,.55) inset}
+.candlePage .wish .tag::before{content:"";position:absolute;left:50%;top:-.55em;width:3.4em;height:1.1em;transform:translateX(-50%) rotate(3deg);
+  background:repeating-linear-gradient(90deg,#b7d268 0 .5em,#d2e493 .5em 1em);opacity:.92;box-shadow:0 1px 2px rgba(40,20,5,.3)}
+
+/* ---------- other pages ---------- */
+.photoPage{background:#c48a4f}
+.endPage{background:
+  radial-gradient(circle at 80% 10%,rgba(255,255,255,.4),transparent 55%),
+  linear-gradient(var(--paper-line) 1px,transparent 1px) 0 0/100% 1.55em,
+  linear-gradient(90deg,var(--paper-line) 1px,transparent 1px) 0 0/1.55em 100%,
+  var(--paper);overflow:hidden}
+.endPage .endBox{position:absolute;left:50%;top:44%;width:80%;transform:translate(-50%,-50%) rotate(-2deg);text-align:center}
+.endPage .endBig{margin:0;font-size:2.35em;line-height:1.02;color:var(--tomato)}
+.endPage .endSmall{margin:.55em 0 0;font-size:1.15em;color:var(--ink)}
+.endPage .heart{width:22%;margin:.5em auto 0;display:block;transform:rotate(6deg)}
+.endPage .tapeTop{position:absolute;right:-6%;top:4%;width:36%;height:4.4%;transform:rotate(30deg);opacity:.92;
+  background:repeating-linear-gradient(90deg,#b7d268 0 .55em,#d2e493 .55em 1.1em);box-shadow:0 1px 3px rgba(50,26,8,.3)}
+.endPage .tapeBot{position:absolute;left:-6%;bottom:6%;width:36%;height:4.4%;transform:rotate(30deg);opacity:.92;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.34) 0 .45em,transparent .45em .9em),repeating-linear-gradient(90deg,rgba(255,255,255,.34) 0 .45em,transparent .45em .9em),#ea8a92;box-shadow:0 1px 3px rgba(50,26,8,.3)}
+
+/* ---------- bar / buttons ---------- */
+.bar{position:absolute;z-index:5;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;padding:0 10px;pointer-events:none}
+.bar > *{pointer-events:auto}
+.hint{margin:0;font-size:1.35rem;color:var(--ink);text-shadow:0 1px 0 rgba(255,240,210,.35);animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.ctrls{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 12px}
+.blowGroup{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
+.btn{cursor:pointer;border:0;min-height:44px;padding:.5em 1.05em;font-size:1.1rem;line-height:1.1;color:var(--ink);background:var(--paper);
+  border-radius:3px 7px 4px 6px;outline:1.5px dashed rgba(90,58,34,.38);outline-offset:-5px;
+  box-shadow:0 2px 0 var(--paper-edge),0 6px 10px var(--shadow);display:inline-flex;align-items:center;gap:.5em;
+  transition:transform .12s,box-shadow .12s}
+.btn:nth-child(odd){transform:rotate(-.7deg)} .btn:nth-child(even){transform:rotate(.6deg)}
+.btn:active,.btn.held{transform:translateY(2px) rotate(0);box-shadow:0 0 0 var(--paper-edge),0 2px 4px var(--shadow)}
+.btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.btn.primary{background:var(--tomato);color:var(--tomato-ink);outline-color:rgba(255,247,230,.6);box-shadow:0 2px 0 #b03018,0 6px 10px var(--shadow)}
+.btn.primary:active,.btn.primary.held{box-shadow:0 0 0 #b03018,0 2px 4px var(--shadow)}
+.btn svg{width:1.15em;height:1.15em;flex:none}
+.btn.micOn{background:#d9ecab}
+.meter{display:flex;align-items:flex-end;gap:2px;height:24px;padding:0 2px}
+.meter i{display:block;width:6px;border-radius:2px;background:rgba(74,47,26,.22);height:calc(28% + var(--i)*6%)}
+.meter i.on{background:var(--c)}
+.meter.blowing{animation:jit .18s linear infinite}
+@keyframes jit{0%,100%{transform:translateX(0)}50%{transform:translateX(1px)}}
+.note{margin:0;max-width:min(560px,92vw);text-align:center;font-size:1rem;color:var(--ink);background:rgba(251,241,218,.86);padding:.35em .8em;border-radius:5px}
+[data-ui]{display:none}
+.bar[data-state="0"] [data-ui~="s0"],
+.bar[data-state="1"] [data-ui~="s1"],
+.bar[data-state="2"] [data-ui~="s2"]{display:inline-flex}
+.bar[data-state="0"] p[data-ui~="s0"],.bar[data-state="1"] p[data-ui~="s1"],.bar[data-state="2"] p[data-ui~="s2"]{display:block}
+.bar[data-state="1"] .blowGroup[data-ui~="s1"]{display:flex}
+.rotateTip{display:none}
+@media (max-width:640px) and (orientation:portrait){
+  .bar[data-state="1"] .rotateTip{display:block}
+  .blowGroup{flex-basis:100%;justify-content:center;order:0}
+  .ctrls .nav{order:1}
+}
+.rotateTip{margin:0;font-size:.95rem;opacity:.85}
+.note:empty{display:none}
+
+/* ---------- confetti ---------- */
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+
+@media (prefers-reduced-motion:reduce){
+  .leaf.cover.idle,.hint,.candlePage .spark,.meter.blowing{animation:none}
+  .letterPage .letter{transition-duration:.01s}
+}
+</style>
+</head>
+<body>
+
+<div class="deco tape a"></div><div class="deco tape b"></div>
+<svg class="deco sticker s1" viewBox="-12 -12 24 24" aria-hidden="true"><path d="M0 9.5 C-9 2 -8 -8 -3.6 -8 C-1.4 -8 0 -6.4 0 -5 C0 -6.4 1.4 -8 3.6 -8 C8 -8 9 2 0 9.5Z" fill="#f3a9b4" stroke="#fff6e2" stroke-width="1.6" stroke-linejoin="round"/></svg>
+<svg class="deco sticker s2" viewBox="-12 -12 24 24" aria-hidden="true"><path d="M0 -10 L2.9 -3.2 L10 -2.6 L4.6 2.2 L6.2 9.2 L0 5.5 L-6.2 9.2 L-4.6 2.2 L-10 -2.6 L-2.9 -3.2Z" fill="#ffd43b" stroke="#fff6e2" stroke-width="1.6" stroke-linejoin="round"/></svg>
+
+<main class="bookwrap" id="wrap" data-state="0">
+  <div class="book" id="book">
+    <div class="slot l" id="slotL"></div>
+    <div class="slot r" id="slotR"></div>
+    <div class="leaf b" id="leafB" style="visibility:hidden">
+      <div class="face front" id="leafBFront"></div>
+      <div class="face back" id="leafBBack"></div>
+    </div>
+    <div class="leaf cover idle" id="leafCover" role="button" tabindex="0" aria-label="Open the birthday card">
+      <div class="face front" id="coverFront"></div>
+      <div class="face back" id="coverBack"></div>
+    </div>
+  </div>
+</main>
+
+<div class="bar" id="bar" data-state="0">
+  <p class="hint" data-ui="s0" id="hint">Tap the cover to open</p>
+  <div class="ctrls">
+    <div class="blowGroup" data-ui="s1">
+      <button class="btn" id="btnMic" type="button" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5 11.5a7 7 0 0 0 14 0M12 18.5V22"/></svg>
+        <span id="micLabel">Turn on mic</span>
+      </button>
+      <div class="meter" id="meter" role="img" aria-label="Microphone level"></div>
+      <button class="btn primary" id="btnBlow" type="button">Hold to blow</button>
+    </div>
+    <button class="btn nav" id="btnBack" type="button" data-ui="s1 s2">Back to cover</button>
+    <button class="btn nav" id="btnPrev" type="button" data-ui="s2">Previous page</button>
+    <button class="btn nav" id="btnNext" type="button" data-ui="s1">Next page</button>
+  </div>
+  <p class="rotateTip" data-ui="s1">Tip: turn your phone sideways for a bigger card</p>
+  <p class="note" id="note" role="status" aria-live="polite"></p>
+</div>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+/*__DATA__*/
+</script>
+<script>
+(() => {
+'use strict';
+const ASP = 2000/1414;               // page aspect (height / width)
+const $ = (s, r=document) => r.querySelector(s);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const raf = () => new Promise(r => requestAnimationFrame(() => r()));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FLIP = reduce ? 1 : 1000;
+const root = document.documentElement;
+root.style.setProperty('--flip', FLIP + 'ms');
+
+const wrap=$('#wrap'), slotL=$('#slotL'), slotR=$('#slotR');
+const leafCover=$('#leafCover'), leafB=$('#leafB');
+const bar=$('#bar'), note=$('#note');
+const L = {pw:400, vw:0, vh:0};
+let state = 0, busy = false;
+
+/* ---------------- layout ---------------- */
+function layout(){
+  const vw = innerWidth, vh = innerHeight;
+  const padTop = Math.max(24, vh*0.05);
+  const barH = vw < 640 ? 132 : 84;
+  const region = vh - padTop - barH;
+  let pw = Math.min((vw - 16)/2, region/ASP, 640);
+  pw = Math.max(110, pw);
+  let s = Math.min((vw - 32)/pw, region/(pw*ASP));
+  s = Math.max(1, Math.min(s, 2));
+  L.pw = pw; L.vw = vw; L.vh = vh;
+  root.style.setProperty('--pw', pw.toFixed(2)+'px');
+  root.style.setProperty('--s', s.toFixed(4));
+  root.style.setProperty('--cy', (padTop + region/2).toFixed(1)+'px');
+  applyLetter();
+}
+
+/* ---------------- DOM helpers ---------------- */
+function el(tag, cls, html){ const e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+function img(src, cls, alt){ const i=new Image(); i.src=src; i.alt=alt||''; i.draggable=false; if(cls) i.className=cls; if(!alt) i.setAttribute('aria-hidden','true'); return i; }
+function layerImg(src, m, cls){ const i=img(src,'layer '+(cls||'')); i.style.left=m.x+'%'; i.style.top=m.y+'%'; i.style.width=m.w+'%'; return i; }
+
+const LETTER_ALT = "Letter: Happieee birthdayyyy to my favourite person in the whole universe. Have the most wonderful year ahead filled with lots of joy and icecreams. You have absolutely no idea how much you make my life better just by being in it. I honestly wouldn't have made it past this year without you and I'm the most blessed to call you my bestie forever. People wish for the same soulmates in everybirth; for me it's you who I would wish for without a thought every single lifetime. Love you lotssss, my smart, gorgeous, kind, cutest person.";
+
+/* ---------------- letter page ---------------- */
+let letterPageStatic = null, letterEl = null, letterUp = false;
+function envelopeSVG(uid){
+  return `<svg class="env" viewBox="0 0 100 141.44" aria-hidden="true">
+  <defs>
+    <pattern id="dots${uid}" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="4" fill="#ec98a3"/><circle cx="2" cy="2" r=".75" fill="#f9d3d8"/></pattern>
+    <linearGradient id="sh${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a2a20" stop-opacity=".30"/><stop offset="1" stop-color="#5a2a20" stop-opacity="0"/></linearGradient>
+  </defs>
+  <ellipse cx="50" cy="137.4" rx="44" ry="2.6" fill="rgba(60,30,10,.28)"/>
+  <polygon points="6,72 94,72 50,38.5" fill="url(#dots${uid})" stroke="#d3707d" stroke-width=".5" stroke-linejoin="round"/>
+  <rect x="6" y="72" width="88" height="62" rx="1.5" fill="#f4bcc3"/>
+  <polygon points="6,72 94,72 50,104" fill="#f6c3c9"/>
+  <polygon points="6,72 50,104 6,134" fill="#f0a9b3"/>
+  <polygon points="94,72 50,104 94,134" fill="#f0a9b3"/>
+  <polygon points="6,134 94,134 50,104" fill="#f9d3d7"/>
+  <path d="M6 134 L50 104 L94 134 M6 72 L50 104 L94 72" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width=".45" stroke-dasharray="1.4 1"/>
+  <rect x="6" y="72" width="88" height="62" rx="1.5" fill="none" stroke="#d3707d" stroke-width=".55"/>
+  <rect x="6" y="72" width="88" height="4.5" fill="url(#sh${uid})"/>
+  <g transform="rotate(-3 50 122)">
+    <rect x="30" y="115" width="40" height="11.5" rx="1" fill="#fff6e2" stroke="#c9a26f" stroke-width=".45" stroke-dasharray="1.3 1"/>
+    <text x="50" y="123.1" text-anchor="middle" font-family="Gochi Hand,Comic Sans MS,cursive" font-size="6.6" fill="#5a3a22">for Shakti</text>
+  </g>
+  <g transform="translate(50 104) scale(.95)"><path d="M0 4.4 C-8 -1.6 -6 -8.2 -2.2 -8.2 C-.8 -8.2 0 -7.1 0 -6.3 C0 -7.1 .8 -8.2 2.2 -8.2 C6 -8.2 8 -1.6 0 4.4Z" fill="#e8492f" stroke="#fff6e2" stroke-width="1.1" stroke-linejoin="round"/></g>
+  <g transform="rotate(-38 14 80)"><rect x="3" y="77.5" width="22" height="6" fill="#b7d268" opacity=".92"/><rect x="3" y="77.5" width="22" height="6" fill="url(#none)" /></g>
+  <g transform="rotate(38 86 80)"><rect x="75" y="77.5" width="22" height="6" fill="#ffd66b" opacity=".92"/></g>
+</svg>`;
+}
+function buildLetterPage(interactive, uid){
+  const pg = el('div','page letterPage');
+  pg.append(el('div','tapeTop'));
+  pg.insertAdjacentHTML('beforeend',
+    `<p class="cap">tap the letter</p>
+     <svg class="capArrow" viewBox="0 0 60 50" fill="none" stroke="#e8492f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6 C30 0 52 12 46 40"/><path d="M36 32 L46 42 L52 29"/></svg>`);
+  pg.insertAdjacentHTML('beforeend', envelopeSVG(uid));
+  const scrim = el('div','scrim'); pg.append(scrim);
+  const hit = el('div','hit'); pg.append(hit);
+  const letter = el('div','letter');
+  letter.append(img(DATA.letter,'', interactive ? LETTER_ALT : ''));
+  pg.append(letter);
+  if(interactive){
+    letter.tabIndex = 0; letter.setAttribute('role','button');
+    letter.setAttribute('aria-expanded','false'); letter.setAttribute('aria-label','Letter for you. Press Enter to read it.');
+    letter.addEventListener('click', e => { e.stopPropagation(); toggleLetter(); });
+    letter.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); toggleLetter(); } });
+    hit.addEventListener('click', () => { if(!letterUp) toggleLetter(); });
+    scrim.addEventListener('click', () => { if(letterUp) toggleLetter(); });
+  } else {
+    pg.setAttribute('inert',''); pg.style.pointerEvents='none';
+  }
+  return pg;
+}
+function letterTransforms(up){
+  const u = L.pw/100;
+  if(!up) return {t:'translateY(calc(var(--pw)/100*44)) scale(.62)', c:'inset(-3% -3% 63.4% -3%)'};
+  const letterW = 88*u;
+  let s = 0.94, dx = 0, dy = ((100*ASP) - 88*ASP*s)/2*u, rot = -1.4;
+  if(letterW*s < 360){                      // small screens: bring it up big enough to read
+    const targetW = Math.min(L.vw*0.94, (L.vh*0.88)/ASP);
+    s = targetW/letterW; rot = 0;
+    const r = slotL.getBoundingClientRect();
+    dy = (L.vh - targetW*ASP)/2 - r.top;
+    dx = L.vw/2 - (r.left + r.width/2);
+  }
+  return {t:`translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(${rot}deg)`, c:'inset(-3% -3% -3% -3%)'};
+}
+function applyLetter(){
+  if(!letterEl) return;
+  const {t,c} = letterTransforms(letterUp);
+  letterEl.style.transform = t; letterEl.style.clipPath = c;
+}
+function toggleLetter(force){
+  if(state!==1 || busy && force===undefined) return;
+  letterUp = force===undefined ? !letterUp : force;
+  letterPageStatic.classList.toggle('up', letterUp);
+  slotL.style.zIndex = letterUp ? 6 : '';
+  letterEl.setAttribute('aria-expanded', String(letterUp));
+  letterEl.setAttribute('aria-label', letterUp ? 'Letter. Press Enter to tuck it back.' : 'Letter for you. Press Enter to read it.');
+  applyLetter();
+}
+
+/* ---------------- end page ---------------- */
+function buildEndPage(){
+  const pg = el('div','page endPage');
+  pg.innerHTML = `<div class="tapeTop"></div><div class="tapeBot"></div>
+    <div class="endBox">
+      <p class="endBig">Happy birthday, Shakti!</p>
+      <svg class="heart" viewBox="-12 -12 24 24" aria-hidden="true"><path d="M0 9.5 C-9 2 -8 -8 -3.6 -8 C-1.4 -8 0 -6.4 0 -5 C0 -6.4 1.4 -8 3.6 -8 C8 -8 9 2 0 9.5Z" fill="#f3a9b4" stroke="#e8492f" stroke-width="1.1" stroke-linejoin="round"/></svg>
+      <p class="endSmall">here's to more icecreams</p>
+    </div>`;
+  return pg;
+}
+function buildPhotoPage(){
+  const pg = el('div','page photoPage');
+  const i = img(DATA.photobooth,'fill','Photo strip of Shakti and a friend: ice creams, ticket stickers, and four photo-booth style pictures.');
+  pg.append(i); return pg;
+}
+
+/* ---------------- candles page ---------------- */
+const flames = [];       // {el, smoke, sparks[], out, thr, phase}
+let candlePageEl = null, wishEl = null;
+function buildCandlePage(interactive){
+  const pg = el('div','page candlePage');
+  pg.append(img(DATA.cake,'cake', interactive ? 'A strawberry cake with seven lit candles' : ''));
+  MAN.forEach((c,i) => {
+    const sparks = c.sparks.map(s => {
+      const im = layerImg(DATA[s.name], s, 'spark'); im.style.setProperty('--d', (Math.random()*2.6).toFixed(2)+'s'); pg.append(im); return im;
+    });
+    const smoke = el('div','smoke','<i></i><i></i><i></i>');
+    smoke.style.left = (c.flame.x + c.flame.w*c.flame.ox/100)+'%';
+    smoke.style.top  = (c.flame.y + c.flame.h*0.35)+'%';
+    pg.append(smoke);
+    const fl = layerImg(DATA[c.flame.name], c.flame, 'flame');
+    fl.style.transformOrigin = c.flame.ox+'% '+c.flame.oy+'%';
+    pg.append(fl);
+    pg.append(layerImg(DATA[c.wick.name], c.wick, 'wick'));
+    if(interactive) flames.push({el:fl, smoke, sparks, out:false, thr:0, phase:Math.random()*6.28, i});
+  });
+  const wish = el('div','wish','<span class="tag">make a wish, Shakti</span>');
+  wish.setAttribute('aria-hidden','true');
+  pg.append(wish);
+  if(interactive) wishEl = wish;
+  return pg;
+}
+function shuffleThresholds(){
+  const base = [0.30,0.34,0.38,0.42,0.45,0.48,0.50];
+  for(let i=base.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [base[i],base[j]]=[base[j],base[i]]; }
+  flames.forEach((f,i)=>f.thr=base[i]);
+}
+
+/* ---------------- blowing: mic + fallback ---------------- */
+let lit = true, blowT = 0, bend = 0, holdBtn = false, holdKey = false;
+const mic = {ctx:null, stream:null, analyser:null, tbuf:null, fbuf:null, floor:0.004, on:false, rms:0, low:0, blow:false, k:0};
+const meterEl = $('#meter'), btnMic=$('#btnMic'), micLabel=$('#micLabel'), btnBlow=$('#btnBlow');
+const cells = [];
+for(let i=0;i<12;i++){ const c=document.createElement('i'); c.style.setProperty('--i', i);
+  c.style.setProperty('--c', i<7 ? '#79b83c' : i<10 ? '#f2b21c' : '#e8492f'); meterEl.append(c); cells.push(c); }
+
+function setNote(msg){ note.textContent = msg || ''; }
+function setMicUI(status){
+  btnMic.classList.toggle('micOn', status==='on'); btnMic.setAttribute('aria-pressed', String(status==='on'));
+  micLabel.textContent = status==='on' ? 'Mic on' : status==='asking' ? 'Allow the mic…' : status==='blocked' ? 'Mic unavailable' : 'Turn on mic';
+}
+async function micStart(){
+  if(mic.on) return;
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.isSecureContext){
+    setMicUI('blocked');
+    setNote("The mic only works on https pages, so host this file rather than opening it from your computer. Until then, hold the button or press Space to blow.");
+    return;
+  }
+  setMicUI('asking'); setNote('');
+  try{
+    mic.stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false, noiseSuppression:false, autoGainControl:false}});
+    const AC = window.AudioContext || window.webkitAudioContext;
+    mic.ctx = new AC();
+    if(mic.ctx.state==='suspended') await mic.ctx.resume();
+    const src = mic.ctx.createMediaStreamSource(mic.stream);
+    mic.analyser = mic.ctx.createAnalyser();
+    mic.analyser.fftSize = 2048; mic.analyser.smoothingTimeConstant = 0.25;
+    mic.tbuf = new Float32Array(mic.analyser.fftSize);
+    mic.fbuf = new Float32Array(mic.analyser.frequencyBinCount);
+    src.connect(mic.analyser);                 // deliberately not connected to speakers: no feedback
+    mic.on = true; mic.floor = 0.004;
+    setMicUI('on'); setNote('Mic is on. Blow towards it for about half a second.');
+    if(state!==1) micStop();
+  }catch(err){
+    micStop(true);
+    setMicUI('blocked');
+    setNote(err && err.name==='NotAllowedError'
+      ? "The mic is blocked for this page. Allow it in your browser's site settings, or hold the button or press Space to blow."
+      : "Couldn't use the mic here. Hold the button or press Space to blow.");
+  }
+}
+function micStop(quiet){
+  if(mic.stream) mic.stream.getTracks().forEach(t=>t.stop());
+  if(mic.ctx) { try{ mic.ctx.close(); }catch(e){} }
+  mic.stream=mic.ctx=mic.analyser=null; mic.on=false; mic.rms=0; mic.blow=false; mic.k=0;
+  if(!quiet){ setMicUI('off'); }
+  cells.forEach(c=>c.classList.remove('on')); meterEl.classList.remove('blowing');
+}
+function readMic(){
+  if(!mic.on || !mic.analyser){ mic.rms=0; mic.blow=false; mic.k=0; return; }
+  mic.analyser.getFloatTimeDomainData(mic.tbuf);
+  let sum=0; for(let i=0;i<mic.tbuf.length;i++){ const v=mic.tbuf[i]; sum+=v*v; }
+  const rms = Math.sqrt(sum/mic.tbuf.length);
+  mic.analyser.getFloatFrequencyData(mic.fbuf);
+  const binHz = mic.ctx.sampleRate/mic.analyser.fftSize;
+  const lo = Math.max(1,Math.floor(1000/binHz)), hi = Math.floor(6000/binHz);
+  let eLow=0,eHigh=0;
+  for(let i=1;i<hi;i++){ const p=Math.pow(10, mic.fbuf[i]/10); if(i<lo) eLow+=p; else eHigh+=p; }
+  const lowRatio = eLow/(eLow+eHigh+1e-12);
+  const thr = Math.max(0.045, mic.floor*3.5);
+  const blow = rms > thr && lowRatio > 0.5;
+  if(!blow) mic.floor += (rms - mic.floor)*0.03;      // slowly learn the room's background level
+  mic.rms=rms; mic.low=lowRatio; mic.blow=blow;
+  mic.k = blow ? Math.min(1, Math.max(0.25,(rms-thr)/0.14)) : 0;
+}
+function drawMeter(){
+  const level = Math.min(1, Math.sqrt(mic.rms/0.3));
+  const n = mic.on ? Math.round(level*cells.length) : 0;
+  for(let i=0;i<cells.length;i++) cells[i].classList.toggle('on', i<n);
+  meterEl.classList.toggle('blowing', mic.blow && lit);
+}
+
+/* ---------------- flame loop ---------------- */
+let loopId = 0, lastT = 0;
+function startLoop(){ if(loopId) return; lastT=performance.now(); loopId=requestAnimationFrame(tick); }
+function stopLoop(){ if(loopId) cancelAnimationFrame(loopId); loopId=0; }
+function tick(t){
+  loopId = requestAnimationFrame(tick);
+  const dt = Math.min(0.05,(t-lastT)/1000); lastT=t;
+  readMic(); drawMeter();
+  const holding = holdBtn || holdKey;
+  const active = lit && (holding || mic.blow);
+  const target = !lit ? 0 : holding ? 0.9 : mic.blow ? mic.k : 0;
+  bend += (target-bend)*Math.min(1, dt*10);
+  if(lit){
+    blowT = active ? blowT + dt : Math.max(0, blowT - dt*1.3);
+    const prog = Math.min(1, blowT/0.5);
+    for(const f of flames){
+      if(f.out) continue;
+      const ts = t/1000;
+      const fl = Math.sin(ts*7.3+f.phase)*1.6 + Math.sin(ts*13.1+f.phase*2)*0.9;
+      const skew = -(bend*30) + fl*0.5;
+      const sy = (1 + Math.sin(ts*9+f.phase)*0.035) * (1 - bend*0.16 - prog*0.12);
+      const sx = 1 - bend*0.06;
+      f.el.style.transform = `rotate(${(fl + bend*7).toFixed(2)}deg) skewX(${skew.toFixed(2)}deg) scale(${sx.toFixed(3)},${sy.toFixed(3)})`;
+      if(blowT >= f.thr) extinguish(f);
+    }
+    if(flames.every(f=>f.out)) allOut();
+  } else if(bend>0.001){ /* settle */ }
+}
+function extinguish(f){
+  f.out = true;
+  f.el.style.transform = `skewX(${(-bend*34).toFixed(1)}deg) scale(.25,.35)`;
+  f.el.classList.add('out');
+  f.sparks.forEach(s=>s.classList.add('gone'));
+  f.smoke.classList.remove('go'); void f.smoke.offsetWidth; f.smoke.classList.add('go');
+}
+function allOut(){
+  lit = false; blowT = 0;
+  setTimeout(() => {
+    wishEl.classList.add('show'); wishEl.setAttribute('aria-hidden','false');
+    burst();
+    setNote('');
+  }, 380);
+  btnBlow.textContent = 'Relight candles';
+}
+function relight(){
+  lit = true; blowT = 0; bend = 0; shuffleThresholds();
+  wishEl.classList.remove('show'); wishEl.setAttribute('aria-hidden','true');
+  flames.forEach(f=>{
+    f.out=false; f.el.classList.add('lighting'); f.el.classList.remove('out'); f.el.style.transform='';
+    f.sparks.forEach(s=>s.classList.remove('gone'));
+    f.smoke.classList.remove('go');
+    setTimeout(()=>f.el.classList.remove('lighting'), 400);
+  });
+  btnBlow.textContent = 'Hold to blow';
+}
+
+/* hold-to-blow button + spacebar */
+btnBlow.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  if(!lit){ relight(); return; }
+  holdBtn = true; btnBlow.classList.add('held');
+  try{ btnBlow.setPointerCapture(e.pointerId); }catch(_){}
+});
+['pointerup','pointercancel','lostpointercapture'].forEach(ev => btnBlow.addEventListener(ev, () => { holdBtn=false; btnBlow.classList.remove('held'); }));
+btnBlow.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); if(!lit) relight(); } });
+btnBlow.addEventListener('contextmenu', e => e.preventDefault());
+addEventListener('keydown', e => {
+  if(e.code==='Space' && state===1){
+    e.preventDefault();
+    if(e.repeat) return;
+    if(!lit){ relight(); return; }
+    holdKey = true; btnBlow.classList.add('held');
+  }
+});
+addEventListener('keyup', e => {
+  if(e.code==='Space' && state===1){ e.preventDefault(); holdKey=false; btnBlow.classList.remove('held'); }
+});
+addEventListener('blur', () => { holdKey=false; holdBtn=false; btnBlow.classList.remove('held'); });
+btnMic.addEventListener('click', () => { mic.on ? (micStop(), setNote('')) : micStart(); });
+
+/* ---------------- confetti ---------------- */
+const cv = $('#confetti'), cx = cv.getContext('2d');
+let parts = [], cRaf = 0, cLast = 0, dpr = 1;
+function sizeCanvas(){ dpr = Math.min(2, devicePixelRatio||1); cv.width = Math.round(innerWidth*dpr); cv.height = Math.round(innerHeight*dpr); cx.setTransform(dpr,0,0,dpr,0,0); }
+const COLORS = ['#e8492f','#ff8a3d','#ffd43b','#b7d268','#35b6ff','#f3a9b4','#a982ea','#ffffff'];
+function burst(){
+  const r = candlePageEl.getBoundingClientRect();
+  const ox = r.left + r.width/2, oy = r.top + r.height*0.62;
+  const n = reduce ? 40 : 170;
+  for(let i=0;i<n;i++){
+    const ang = -Math.PI/2 + (Math.random()-.5)*2.2, sp = 320 + Math.random()*560;
+    parts.push(mk(ox, oy, Math.cos(ang)*sp, Math.sin(ang)*sp));
+  }
+  if(!reduce) for(let i=0;i<70;i++) parts.push(mk(Math.random()*innerWidth, -20-Math.random()*innerHeight*0.5, (Math.random()-.5)*60, 60+Math.random()*120));
+  if(!cRaf){ cLast = performance.now(); cRaf = requestAnimationFrame(cTick); }
+}
+function mk(x,y,vx,vy){
+  return {x,y,vx,vy, rot:Math.random()*6.28, vr:(Math.random()-.5)*10, w:6+Math.random()*7, h:9+Math.random()*9,
+    c:COLORS[Math.floor(Math.random()*COLORS.length)], tilt:Math.random()*6.28, ts:4+Math.random()*6, round:Math.random()<.25, life:0};
+}
+function cTick(t){
+  const dt = Math.min(0.04,(t-cLast)/1000); cLast=t;
+  cx.clearRect(0,0,innerWidth,innerHeight);
+  parts = parts.filter(p => p.life < 5 && p.y < innerHeight+40);
+  for(const p of parts){
+    p.life += dt; p.vy += 900*dt; p.vx *= (1 - 1.6*dt); p.vy *= (1 - 0.9*dt);
+    p.x += p.vx*dt; p.y += p.vy*dt; p.rot += p.vr*dt; p.tilt += p.ts*dt;
+    cx.save(); cx.translate(p.x,p.y); cx.rotate(p.rot); cx.scale(1, Math.cos(p.tilt)); cx.fillStyle=p.c;
+    cx.globalAlpha = Math.min(1, (5-p.life)*1.2);
+    if(p.round){ cx.beginPath(); cx.arc(0,0,p.w/2,0,6.283); cx.fill(); } else cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+    cx.restore();
+  }
+  if(parts.length) cRaf = requestAnimationFrame(cTick); else { cRaf=0; cx.clearRect(0,0,innerWidth,innerHeight); }
+}
+
+/* ---------------- book state machine ---------------- */
+let letterPageClone, photoPageStatic, endPageStatic;
+function syncBar(s){ bar.dataset.state = String(s); }
+function setCoverInteractive(on){ leafCover.style.pointerEvents = on ? 'auto' : 'none'; }
+
+async function openCover(){
+  if(busy || state!==0) return; busy = true;
+  leafCover.classList.remove('idle'); setCoverInteractive(false);
+  wrap.dataset.state = '1'; syncBar(1);
+  await raf(); leafCover.classList.add('flipped');
+  await sleep(FLIP + 50);
+  letterPageStatic.classList.remove('vh');
+  leafCover.style.visibility = 'hidden';
+  state = 1; busy = false; setNote(''); startLoop();
+}
+async function closeCover(){
+  if(busy || state!==1) return; busy = true;
+  if(letterUp){ toggleLetter(false); await sleep(520); }
+  micStop(); setNote(''); holdKey = holdBtn = false;
+  letterPageStatic.classList.add('vh'); slotL.style.zIndex='';
+  leafCover.style.visibility = 'visible';
+  await raf();
+  wrap.dataset.state = '0'; syncBar(0);
+  leafCover.classList.remove('flipped');
+  await sleep(FLIP + 50);
+  leafCover.classList.add('idle'); setCoverInteractive(true);
+  state = 0; busy = false; stopLoop();
+}
+async function nextPage(){
+  if(busy || state!==1) return; busy = true;
+  if(letterUp){ toggleLetter(false); await sleep(520); }
+  micStop(); setNote(''); holdKey = holdBtn = false;
+  // snapshot the candles page (current flame state) onto the front of the turning leaf
+  const front = $('#leafBFront'); front.replaceChildren();
+  const holder = el('div','clone'); const snap = candlePageEl.cloneNode(true); holder.append(snap); front.append(holder);
+  candlePageEl.classList.add('vh'); endPageStatic.classList.remove('vh');
+  leafB.classList.remove('flipped'); leafB.style.visibility='visible';
+  await raf(); await raf();
+  leafB.classList.add('flipped'); syncBar(2);
+  await sleep(FLIP + 50);
+  letterPageStatic.classList.add('vh'); photoPageStatic.classList.remove('vh');
+  leafB.style.visibility = 'hidden';
+  state = 2; busy = false; stopLoop();
+}
+async function prevPage(dur){
+  if(busy || state!==2) return; busy = true;
+  const d = dur || FLIP;
+  leafB.style.transitionDuration = d+'ms';
+  photoPageStatic.classList.add('vh'); letterPageStatic.classList.remove('vh');
+  leafB.style.visibility = 'visible';
+  await raf(); leafB.classList.remove('flipped'); syncBar(1);
+  await sleep(d + 50);
+  candlePageEl.classList.remove('vh'); endPageStatic.classList.add('vh');
+  leafB.style.visibility = 'hidden'; leafB.style.transitionDuration = '';
+  state = 1; busy = false; startLoop();
+}
+async function backToCover(){
+  if(busy) return;
+  if(state===2){ await prevPage(650); }
+  await closeCover();
+}
+
+/* ---------------- init ---------------- */
+function init(){
+  // cover
+  const cf = $('#coverFront');
+  cf.append(img(DATA.cover,'','Birthday card cover: Shakti in a blue saree, with balloons, confetti, cupcakes and a grey kitten.'));
+  const cb = $('#coverBack'); letterPageClone = buildLetterPage(false,'c'); cb.append(letterPageClone);
+  // left slot pages
+  letterPageStatic = buildLetterPage(true,'s'); letterPageStatic.classList.add('vh');
+  letterEl = $('.letter', letterPageStatic);
+  photoPageStatic = buildPhotoPage(); photoPageStatic.classList.add('vh');
+  slotL.append(letterPageStatic, photoPageStatic);
+  // right slot pages
+  candlePageEl = buildCandlePage(true);
+  endPageStatic = buildEndPage(); endPageStatic.classList.add('vh');
+  slotR.append(endPageStatic, candlePageEl);
+  shuffleThresholds();
+  // leaf B back = photobooth
+  const bb = $('#leafBBack'); const pp = buildPhotoPage(); bb.append(pp);
+
+  layout(); sizeCanvas();
+  addEventListener('resize', () => { layout(); sizeCanvas(); });
+  leafCover.addEventListener('click', openCover);
+  leafCover.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openCover(); } });
+  $('#btnBack').addEventListener('click', backToCover);
+  $('#btnNext').addEventListener('click', nextPage);
+  $('#btnPrev').addEventListener('click', () => prevPage());
+  document.addEventListener('visibilitychange', () => { if(document.hidden) { holdKey=holdBtn=false; } });
+  document.fonts && document.fonts.ready && document.fonts.ready.then(()=>{});
+  // test hooks (harmless in production)
+  window.__card = { get state(){return state;}, get lit(){return lit;}, get letterUp(){return letterUp;}, flames, mic, L };
+}
+init();
+})();
+</script>
+</body>
+</html>
